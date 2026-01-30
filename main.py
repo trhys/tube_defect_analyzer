@@ -23,7 +23,7 @@ def ocr_read(filepath):
         elif index_rn in data:
             split_index = data.index(index_rn) + 1
         else:
-            raise Exception("ERROR: could not find 'Roll Footage' index. other indices are not currently implemented")
+            raise Exception("ERROR: could not find 'Roll Footage' or 'R#' index. other indices are not currently implemented")
         split_data = split_log(data[split_index+1:])
         print(split_data)
 
