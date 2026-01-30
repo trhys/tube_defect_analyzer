@@ -5,6 +5,6 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "paddleocr>=3.4.0",
-    "paddlepaddle>=3.3.0",
+    "paddleocr==3.3.3",
+    "paddlepaddle==3.2.0",
 ]
