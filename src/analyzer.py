@@ -25,6 +25,8 @@ def cat_time_groups(groups):
                     new_group.append(pair)
                     seen.append(pair)
             cleaned_groups.append(new_group)
+    else:
+        return groups
     return cleaned_groups
 
 def analyze_time_diff(data):

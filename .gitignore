@@ -12,3 +12,6 @@ wheels/
 
 # Tests
 tests/
+
+# SECURE
+secure/

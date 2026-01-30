@@ -3,6 +3,7 @@ import argparse
 import os
 
 from split_log import split_log
+from analyzer import analyze_time_diff
 
 def ocr_read(filepath):
     ocr = PaddleOCR(text_rec_score_thresh=0.6, lang='en')
@@ -26,6 +27,9 @@ def ocr_read(filepath):
             raise Exception("ERROR: could not find 'Roll Footage' or 'R#' index. other indices are not currently implemented")
         split_data = split_log(data[split_index+1:])
         print(split_data)
+        print("GROUPING DEFECTS BY TIMESTAMP:")
+        groups = analyze_time_diff(split_data)
+        print(groups)
 
 def main():
     parser = argparse.ArgumentParser(
