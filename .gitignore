@@ -13,6 +13,7 @@ wheels/
 # Tests
 tests/
 test.sh
+ocr_temp/
 
 # SECURE
 secure/
