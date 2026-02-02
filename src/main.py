@@ -1,35 +1,5 @@
-from paddleocr import PaddleOCR
 import argparse
-import os
-
-from split_log import split_log
-from analyzer import analyze_time_diff
-
-def ocr_read(filepath):
-    ocr = PaddleOCR(text_rec_score_thresh=0.6, lang='en')
-    result = ocr.predict(filepath)
-
-    for line in result:
-        data = line["rec_texts"]
-        print("RAW OCR LINES:")
-        print(data)
-        print(f"SAVING TO JSON AT: {os.path.join('tests/', filepath)}")
-        line.save_to_json(os.path.join('tests/', os.path.basename(filepath)))
-
-        print("BEGINNING LOG SPLITTER")
-        index_rf = "Roll Footage"
-        index_rn = "R#"
-        if index_rf in data:
-            split_index = data.index(index_rf)
-        elif index_rn in data:
-            split_index = data.index(index_rn) + 1
-        else:
-            raise Exception("ERROR: could not find 'Roll Footage' or 'R#' index. other indices are not currently implemented")
-        split_data = split_log(data[split_index+1:])
-        print(split_data)
-        print("GROUPING DEFECTS BY TIMESTAMP:")
-        groups = analyze_time_diff(split_data)
-        print(groups)
+from ocr_read import ocr_read
 
 def main():
     parser = argparse.ArgumentParser(

@@ -12,6 +12,7 @@ wheels/
 
 # Tests
 tests/
+test.sh
 
 # SECURE
 secure/
