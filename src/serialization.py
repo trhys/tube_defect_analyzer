@@ -12,3 +12,10 @@ def save_to_json(lots):
     with open(os.path.join("jobs/", str(timestamp)), "w") as f:
         f.write(json.dumps(json_lots, indent=4))
     f.close()
+
+def load_from_json(json_object):
+    lots = []
+    for obj in json_object:
+        tube_lot = TubeLot(json_lot=obj)
+        lots.append(tube_lot)
+    return lots
