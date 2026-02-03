@@ -11,7 +11,7 @@ def split_log(data):
         match = re.match(timestamp_pattern, data[i].replace(" ", ""))
         if match:
             timestamp = clean_timestamp(match.group(1))
-            footage = data[i+1].strip("'")
+            footage = clean_footage(data[i+1].strip("'"))
             cleaned_log.append((timestamp, footage))
     return cleaned_log
 
@@ -28,6 +28,24 @@ def clean_timestamp(time):
         minute = minute.replace("6", "0")
         minute = minute.replace("9", "1")
     return f"{hour.zfill(2)}:{minute.zfill(2)}"
+
+# takes raw footage and cleans up misreading from ocr
+def clean_footage(footage):
+    corrections = {
+        'O': '0', 'o': '0',
+        'l': '1', 'I': '1', 
+        'Z': '2', 'z': '2',
+        'S': '5', 's': '5',
+        'b': '6', 'G': '6',
+        'T': '7',
+        'B': '8',
+        'g': '9', 'q': '9',
+        'L': '1', 'h': '4'
+    }
+    cleaned_footage = footage
+    for old, new in corrections.items():
+        cleaned_footage = cleaned_footage.replace(old, new)
+    return cleaned_footage
 
 # gets heat number and lot number from raw data
 # returns HEAT, LOT

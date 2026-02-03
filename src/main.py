@@ -1,5 +1,6 @@
 import argparse
 from ocr_read import ocr_read
+from analyzer.analyze_lots import analyze
 
 def main():
     parser = argparse.ArgumentParser(
@@ -11,7 +12,12 @@ def main():
     if args.filepath is None:
         raise Exception("ERROR: failed to parse argument: filepath")
 
-    ocr_read(args.filepath)
+    lots = ocr_read(args.filepath)
 
+    for lot in lots:
+        lot.parse_raw()
+        analyze(lot) 
+        print(lot)
+    
 if __name__ == "__main__":
     main()
