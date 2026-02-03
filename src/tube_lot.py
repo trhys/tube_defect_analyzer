@@ -42,3 +42,6 @@ class TubeLot:
             "groups": self.groups
             }
         return json_lot
+
+    def update(self, defect_window):
+        self.groups = analyze_time_diff(self.defects, defect_window)
