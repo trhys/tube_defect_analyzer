@@ -50,7 +50,7 @@ def clean_footage(footage):
 # gets heat number and lot number from raw data
 # returns HEAT, LOT
 def get_lot(data):
-    heat_pattern = r"(?i)(?:R#)?\s*(\d{6}-\d{3})"
+    heat_pattern = r"(?i)(?:[R#\s]+)?\s*[#\s]*(\d{6}-\d{3})"
     lot_pattern = r"(?i)Lot[-\#\s]\s*(\d+)"
     heat = None
     lot = None

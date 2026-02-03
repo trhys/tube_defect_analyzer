@@ -17,3 +17,6 @@ ocr_temp/
 
 # SECURE
 secure/
+
+# RUNTIME FILES
+jobs/

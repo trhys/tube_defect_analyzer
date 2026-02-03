@@ -1,6 +1,7 @@
 import argparse
 from ocr_read import ocr_read
 from analyzer.analyze_lots import analyze
+from serialization import save_to_json
 
 def main():
     parser = argparse.ArgumentParser(
@@ -17,7 +18,9 @@ def main():
     for lot in lots:
         lot.parse_raw()
         analyze(lot) 
+        print(lot._raw_data)
         print(lot)
+    save_to_json(lots)
     
 if __name__ == "__main__":
     main()
