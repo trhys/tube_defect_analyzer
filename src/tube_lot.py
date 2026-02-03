@@ -11,8 +11,8 @@ class TubeLot:
             self.defects = json_lot["defects"]
             self.groups = json_lot["groups"]
 
-            self.avg_group_length = None
-            self.group_rate = None
+            self.avg_group_length = 0
+            self.group_rate = 0
         else:
             self._heat = heat
             self._lot = lot
@@ -21,17 +21,17 @@ class TubeLot:
             self.defects = None
             self.groups = None
 
-            self.avg_group_length = None
-            self.group_rate = None
+            self.avg_group_length = 0
+            self.group_rate = 0
         
     def __repr__(self):
         return f"Heat#: {self._heat}\nLot#: {self._lot}\nDefects (timestamp, footage):\n{self.defects}\nGroups: ==========\n{self.groups}\nAvg Group Length: {self.avg_group_length}\nGroup Rate: {self.group_rate}\n\n"
 
-    def parse_raw(self):
+    def parse_raw(self, defect_window):
         start = get_start_index(self._raw_data)
         end = get_end_index(self._raw_data)
         self.defects = split_log(self._raw_data[start+1:end])
-        self.groups = analyze_time_diff(self.defects)
+        self.groups = analyze_time_diff(self.defects, defect_window)
 
     def to_json(self):
         json_lot = {

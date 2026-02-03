@@ -1,11 +1,9 @@
 
-DEFECT_WINDOW = 2 #minutes
-
 # takes data (a list of tuples (timestamp, footage)) and compares the
 # timestamps to group together defects occuring within a specified 
-# time window TODO: make configurable for time window :
+# time window
 
-def analyze_time_diff(data):
+def analyze_time_diff(data, defect_window):
     if data is None:
         return None
     if len(data) == 0:
@@ -19,7 +17,7 @@ def analyze_time_diff(data):
         time1 = hour1 * 60 + minute1
         time2 = hour2 * 60 + minute2
         delta_time = (time2 - time1) % 1440
-        if delta_time <= DEFECT_WINDOW or delta_time >= 1440 - DEFECT_WINDOW:
+        if delta_time <= defect_window or delta_time >= 1440 - defect_window:
             if current:
                 current.append(stamp2)
             else:
