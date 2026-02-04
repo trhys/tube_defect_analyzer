@@ -4,10 +4,8 @@
 # time window
 
 def analyze_time_diff(data, defect_window):
-    if data is None:
-        return None
-    if len(data) == 0:
-        raise ValueError("data should not be empty!")
+    if not data:
+        return []
     groups = []
     current = []
     for i in range(len(data) -1):

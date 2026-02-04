@@ -42,6 +42,8 @@ Group Rate**: {report['group_rate']}
 ** group rate is defined as the number of grouped defects divided by the number of total defects. This gives a ratio describing the rate of defects that occur in immediate sequence, determined by defect window.
 """
     os.makedirs("reports/", exist_ok=True)
-    with open(os.path.join("reports/", str(datetime.now().time())), "w") as f:
+    dest = os.path.join("reports/", str(datetime.now().time()))
+    print(f"Saving report to {dest}...")
+    with open(dest, "w") as f:
         f.write(output)
         f.close()

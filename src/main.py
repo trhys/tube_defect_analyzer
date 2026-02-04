@@ -4,6 +4,7 @@ from ocr_read import ocr_read
 from analyzer.analyze_lots import analyze
 from analyzer.gen_report import gen_report, save_report
 from serialization import save_to_json, load_from_json
+from tqdm import tqdm
 
 def main():
     parser = argparse.ArgumentParser(
@@ -22,19 +23,20 @@ def main():
     if args.json:
         with open(args.filepath, "r") as f:
             lots = load_from_json(json.load(f))
-            for lot in lots:
+            for lot in tqdm(lots, desc="Analyzing lots", unit="lot"):
                 if args.update:
                     lot.update(args.rate)
                 analyze(lot)
             f.close()
     else:
         lots = ocr_read(args.filepath)
-        for lot in lots:
+        for lot in tqdm(lots, desc="Analyzing lots", unit="lot"):
             lot.parse_raw(args.rate)
             analyze(lot)
 
     save_to_json(lots, args.filepath)
     save_report(gen_report(lots, args.rate))
+    print("Job complete.")
     
 if __name__ == "__main__":
     main()
