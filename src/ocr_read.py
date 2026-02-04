@@ -8,7 +8,7 @@ import time
 def ocr_read(filepath):
     ocr = PaddleOCR(
             text_detection_model_name="PP-OCRv5_server_det",
-            #text_recognition_model_name="PP-OCRv5_server_rec",
+            text_recognition_model_name="PP-OCRv5_server_rec",
             use_doc_orientation_classify=False,
             use_doc_unwarping=False,
             use_textline_orientation=False,
