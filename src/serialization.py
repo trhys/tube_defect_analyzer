@@ -4,7 +4,8 @@ from tube_lot import TubeLot
 from tqdm import tqdm
 
 def save_to_json(lots, filepath):
-    dest = os.path.join("jobs/", os.path.basename(filepath))
+    filename = os.path.splitext(os.path.basename(filepath))[0]
+    dest = os.path.join("jobs/", f"{filename}.json")
     print(f"Saving JSON to {dest}...")
     json_lots = []
     for lot in tqdm(lots, desc="Converting to JSON", unit="lot"):

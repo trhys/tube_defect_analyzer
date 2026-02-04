@@ -15,6 +15,7 @@ def main():
     parser.add_argument('-j', '--j', '--json', dest="json", help='load tube lots from json. requires [filepath] to be json file', action='store_true')
     parser.add_argument('-r', '--r', '--rate', dest="rate", help='set the defect window used by the analyzer. default is 2 minutes', type=int, default=2)
     parser.add_argument('-u', '--u', '--update', dest="update", help='update lot groups when loading from json. this catches edits made on the serialized data, as well as adjusted defect window.', action='store_true')
+    parser.add_argument('-d', '--d', '--hard', dest="hard", help='force update from raw data', action='store_true')
     args = parser.parse_args()
 
     if args.filepath is None:
@@ -24,7 +25,9 @@ def main():
         with open(args.filepath, "r") as f:
             lots = load_from_json(json.load(f))
             for lot in tqdm(lots, desc="Analyzing lots", unit="lot"):
-                if args.update:
+                if args.hard:
+                    lot.parse_raw(args.rate)
+                if args.update and not args.hard:
                     lot.update(args.rate)
                 analyze(lot)
             f.close()

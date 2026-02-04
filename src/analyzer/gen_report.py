@@ -43,6 +43,7 @@ Group Rate**: {report['group_rate']}
 """
     os.makedirs("reports/", exist_ok=True)
     dest = os.path.join("reports/", str(datetime.now().time()))
+    dest = dest.replace(":", "-")
     print(f"Saving report to {dest}...")
     with open(dest, "w") as f:
         f.write(output)
