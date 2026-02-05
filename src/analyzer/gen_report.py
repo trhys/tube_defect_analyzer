@@ -1,4 +1,5 @@
 import os
+import json
 from datetime import datetime
 from tube_lot import TubeLot
 from analyzer.analyze_groups import get_totals
@@ -29,22 +30,28 @@ This report is an analysis of the provided defect logs regarding the defect rate
 ============================================================================================================================
 Total Lots: {report['total_lots']}
 Total Number of Defects: {report['total_defects']}
-Total Number of Groupings*: {report['total_groups']} 
+Total Number of Groupings * : {report['total_groups']} 
 
 Average Defects per Lot: {report['avg_defects_per_lot']}
 Average Groupings per Lot: {report['avg_groups_per_lot']}
 
 Average Group Length: {report['avg_group_length']}
-Group Rate**: {report['group_rate']}
+Group Rate * *: {report['group_rate']}
 
-* grouping is defined as a sequence of defects that occur within a specified defect window. Defect window for this report is: {report['defect_window']} minutes
+* grouping is defined as a sequence of defects that occur within a specified defect window. Defect window for this report is: [[ {report['defect_window']} minutes ]]
 
-** group rate is defined as the number of grouped defects divided by the number of total defects. This gives a ratio describing the rate of defects that occur in immediate sequence, determined by defect window.
+* * group rate is defined as the number of grouped defects divided by the number of total defects. This gives a ratio describing the rate of defects that occur in immediate sequence, determined by defect window.
 """
-    os.makedirs("reports/", exist_ok=True)
-    dest = os.path.join("reports/", str(datetime.now().time()))
-    dest = dest.replace(":", "-")
+    os.makedirs("reports/metadata", exist_ok=True)
+    #timestamp = str(datetime.now().time()).replace(":", "-").replace(".", "-")
+    filename = input("Enter save filename: ")
+    dest = os.path.join("reports/", f"{filename}.md")
     print(f"Saving report to {dest}...")
     with open(dest, "w") as f:
         f.write(output)
+        f.close()
+    dest_json = os.path.join("reports/metadata", f"{filename}.json")
+    print(f"Saving metadata to {dest_json}...")
+    with open(dest_json, "w") as f:
+        f.write(json.dumps(report, indent=4))
         f.close()
