@@ -1,6 +1,6 @@
 # Overview
 
-This is simple defect analysis tool designed for our in house defect logging. I've set up PaddleOCR to handle text detection and recognition, which is used to populate the tubing lots for analysis.
+This is a defect analysis tool designed for our in house defect logging. I've set up PaddleOCR to handle text detection and recognition, which is used to populate the tubing lots for analysis.
 
 Key Metrics:
 - Total Defects
@@ -15,7 +15,15 @@ For the purposes of this defect study, a grouping is defined as a sequence of de
 
 I've also included a meta analysis script that is used to track confidence ratings on reported metrics. This compares first pass reports to final pass and subtracts the delta from the confidence percentage.
 
-# Usage
+## Prerequisites
+
+- [Python](https://www.python.org/)
+- [uv](https://docs.astral.sh/uv/)
+
+  
+## Usage
+
+Pull this repo: ```git clone https://github.com/trhys/tube_defect_analyzer.git```
 
 Assuming you are using uv for the virtual env :
 
@@ -40,11 +48,11 @@ The --rate flat (-r, --r, --rate) is used as: --rate 10
 
 This specifies a defect window of 10 minutes (default 2)
 
-# Reporting
+## Reporting
 
 Reports are saved at reports/USERINPUT. This will give you all the key metrics listed at the top of the page. For meta analysis including confidence scores, use the meta analysis script at the root of the project.
 
-## Example
+### Example
 
 ```
 This report is an analysis of the provided defect logs regarding the defect rates,
@@ -65,7 +73,7 @@ Group Rate**: 0.35064935064935066
 ** group rate is defined as the number of grouped defects divided by the number of total defects. This gives a ratio describing the rate of defects that occur in immediate sequence, determined by defect window.
 ```
 
-# Meta Analysis
+## Meta Analysis
 
 From the project root:
 
@@ -73,7 +81,7 @@ From the project root:
 
 This will compare the results of each analysis and take the delta for each metric and convert to a confidence rating. The confidence score is a percentage of drift from real values for each metric.
 
-## Example
+### Example
 
 ```
 FIRST RUN (UNEDITED) :
